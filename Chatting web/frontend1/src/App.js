@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import './App.css';
 import {useEffect} from 'react';
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect(process.env.CORS_ORIGIN || "http://localhost:3000");
 
 function App() {
   const sendMsg = ()=>{
