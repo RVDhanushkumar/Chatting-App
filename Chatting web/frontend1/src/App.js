@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import './App.css';
 import {useEffect} from 'react';
 
-const socket = io.connect(process.env.CORS_ORIGIN || "http://localhost:3000" || "https://chatweb13.vercel.app/?vercelToolbarCode=_pjMrODDSqJxPlo");
+const socket = io.connect("https://chatweb13.vercel.app");
 
 function App() {
   const sendMsg = ()=>{
