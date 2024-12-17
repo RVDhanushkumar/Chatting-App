@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import './App.css';
 import {useEffect} from 'react';
 
-const socket = io.connect("https://chatweb13.vercel.app");
+const socket = io.connect("wss://chatweb13.vercel.app");
 
 function App() {
   const sendMsg = ()=>{
