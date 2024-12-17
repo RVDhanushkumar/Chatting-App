@@ -3,9 +3,7 @@ import './App.css';
 import { useEffect } from 'react';
 
 const socket = io.connect(
-  process.env.NODE_ENV === "production"
-    ? "wss://dk-chat-nine.vercel.app/"
-    : "http://localhost:3001"
+  "https://dk-chat-nn5vf78gg-rvdhanushkumars-projects.vercel.app/"
 );
 
 function App() {
