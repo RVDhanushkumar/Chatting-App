@@ -8,7 +8,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "https://dh-chat-go.vercel.app" || "http://localhost:3000", // Replace with frontend domain in production
+        origin: "https://dh-chat-go.vercel.app/", // Replace with frontend domain in production
         methods: ["GET", "POST"],
     },
 });

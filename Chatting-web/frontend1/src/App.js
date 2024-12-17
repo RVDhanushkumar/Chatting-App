@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect } from 'react';
 
 const socket = io.connect(
-  "https://dk-chat-nn5vf78gg-rvdhanushkumars-projects.vercel.app/"
+  "https://dk-chat-nine.vercel.app/"
 );
 
 function App() {
