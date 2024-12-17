@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 const socket = io.connect(
   process.env.NODE_ENV === "production"
-    ? "wss://chatweb13.vercel.app"
+    ? "wss://dk-chat-nine.vercel.app/"
     : "http://localhost:3001"
 );
 
