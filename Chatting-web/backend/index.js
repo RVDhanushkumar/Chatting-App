@@ -5,34 +5,43 @@ const cors = require("cors");
 
 const app = express();
 const server = http.createServer(app);
+
 const io = new Server(server, {
-    cors:{
-        origin : "*",
-        methods: ["GET","POST"],
-    }
+    cors: {
+        origin: process.env.CLIENT_URL || "http://localhost:3000", // Replace with frontend domain in production
+        methods: ["GET", "POST"],
+    },
 });
 
 app.use(cors());
 
+// Socket.IO Events
 io.on("connection", (socket) => {
     console.log(`Connected just now: ${socket.id}`);
 
-    socket.on("send_msg",(data)=>{
-        socket.broadcast.emit("recieve_msg",data);
-    })
-    socket.on("disconnect",(socket)=>{
+    // Listen for incoming messages
+    socket.on("send_msg", (data) => {
+        console.log(`Message received from ${socket.id}: ${data}`);
+        socket.broadcast.emit("recieve_msg", data);
+    });
+
+    // Handle client disconnection
+    socket.on("disconnect", () => {
         console.log(`Left: ${socket.id}`);
-    })
+    });
 });
 
+// Routes
 app.get("/", (req, res) => {
-    res.send("HOME PAGE");
+    res.json({ status: "Server is running", time: new Date().toISOString() });
 });
 
 app.get("*", (req, res) => {
-    res.send("Page not found mr.star");
+    res.status(404).send("Page not found mr.star");
 });
 
-server.listen(3001, () => {
-    console.log("Server is running on http://localhost:3001");
+// Dynamic Port for Production
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
