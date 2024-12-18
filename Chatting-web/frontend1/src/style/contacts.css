@@ -1,0 +1,18 @@
+.Other_user{
+    padding: 10px;
+    display: flex;
+    margin: 10px;
+    height: 70px;
+    cursor: pointer;
+    background-color: #4d89ca;
+    border-radius: 10px;
+  }
+  .Other_user img{
+    height: 60px;
+    border-radius: 50%; 
+    margin: 5px;
+    margin-left: 15px;
+  }
+  .grp_info{
+    margin-left: 20px;
+  }

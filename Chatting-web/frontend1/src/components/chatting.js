@@ -1,9 +1,11 @@
 import io from 'socket.io-client';
 import '../style/chatting.css';
+import pic1 from "../assets/prof_pic.jpg";
 import { useEffect } from 'react';
+import Contacts from './contacts';
 
 const socket = io.connect(
-  "https://dk-chat-nine.vercel.app/"
+  "http://localhost:3001"
 );
 
 function Chatting() {
@@ -47,10 +49,26 @@ function Chatting() {
   return (
     <div className="chat-home">
       <div className='chat'>
+        <div className='chat-contacts'>
+          <div className='heading'>
+            <h1>ChatWeb</h1>
+            <input type="search" placeholder='Search group'></input>
+          </div>
+          <div className='cont'>
+            <Contacts img={pic1} name="Dhanush" des="New message"/>
+            <Contacts img={pic1} name="Sai kumar" des="New message"/>
+            <Contacts img={pic1} name="lalith" des="New message"/>
+            <Contacts img={pic1} name="Sharmi" des="New message"/>
+            <Contacts img={pic1} name="Chandu" des="New message"/>
+            <Contacts img={pic1} name="Chandu" des="New message"/>
+          </div>
+        </div>
+        <div className='chat-work'>
         <h2>Welcome To Secret Group Chat🤫</h2>
         <div className='text1'></div>
         <input type='text' placeholder='Enter message 💖' id="text1" autoComplete="off" />
         <button onClick={sendMsg} id="btn">Send</button>
+        </div>
       </div>
     </div>
   );

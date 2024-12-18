@@ -1,47 +1,75 @@
 const express = require("express");
-const { Server } = require("socket.io");
 const http = require("http");
 const cors = require("cors");
+const database = require("./database/db.js"); 
+const user = require("./modules/userSchema.js"); 
+const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
 
+app.use(cors({ origin: "*" }));
+app.use(express.json());
+
 const io = new Server(server, {
     cors: {
-        origin: "https://dh-chat-go.vercel.app/", // Replace with frontend domain in production
+        origin: "http://localhost:3000",
         methods: ["GET", "POST"],
     },
 });
 
-app.use(cors());
-
-// Socket.IO Events
 io.on("connection", (socket) => {
     console.log(`Connected just now: ${socket.id}`);
 
-    // Listen for incoming messages
     socket.on("send_msg", (data) => {
         console.log(`Message received from ${socket.id}: ${data}`);
         socket.broadcast.emit("recieve_msg", data);
     });
 
-    // Handle client disconnection
     socket.on("disconnect", () => {
         console.log(`Left: ${socket.id}`);
     });
 });
 
-// Routes
-app.get("/", (req, res) => {
-    res.json({ status: "Server is running", time: new Date().toISOString() });
+app.post("/register", async (req, res) => {
+    const { name, username, pass } = req.body;
+    try {
+        const newUser = new user({
+            name:name,
+            username: username,
+            password: pass,
+        });
+        await newUser.save();
+        console.log("User registered successfully");
+        res.status(201).json({message:"User registered successfully"});
+    } catch (error) {
+        console.error("Error during registration:", error);
+        res.status(500).json({message:"Error during registration"});
+    }
 });
 
-app.get("*", (req, res) => {
-    res.status(404).send("Page not found mr.star");
+app.post("/login", async (req, res) => {
+    const { name, pass } = req.body;
+    try {
+        const foundUser = await user.findOne({ username: name });
+        if (!foundUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        if (foundUser.password === pass) {
+            return res.status(200).json({ message: "Login successful" });
+        } else {
+            return res.status(401).json({ message: "Invalid password" });
+        }
+    } catch (error) {
+        console.error("Error during login:", error);
+        res.status(500).json({ message: "Login failed due to server error" });
+    }
 });
 
-// Dynamic Port for Production
-const PORT = process.env.PORT || 3001;
+app.get("/",(req,res)=>{
+    res.send("Server home page.....!!")
+})
+const PORT = 3001;
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

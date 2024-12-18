@@ -20,14 +20,40 @@
     min-width: 60%;
     background-color: rgba(59, 82, 199);
     border-radius: 10px;
+    color: white;
     padding: 10px;
     box-shadow: 0px 0px 0px black;
     transition: 1s;
+    display: flex;
   }
+
   .chat:hover{
     transform: translateY(-10px);
     box-shadow: 10px 15px 30px black;
   }
+  .chat-contacts{
+    width: 30%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+  .chat-work{
+    width: 70%;
+  }
+
+.chat-contacts .heading{
+  height: 70px;
+  color:white;
+  padding: 10px;
+}
+
+.heading input{
+  width: 100%;
+  margin-top: 5px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
   .text1{
     height: 80%;
     background: url("../assets/bg4.jpeg");
